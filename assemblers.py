@@ -476,7 +476,7 @@ def opcodeGenerator(instructions_list):
         elif i[0]=='jmp':
             line_num += 1
             flag = 1
-            if len(i) != 3:
+            if len(i) !=2:
                 errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
@@ -503,7 +503,7 @@ def opcodeGenerator(instructions_list):
         elif i[0]=='jlt':
             line_num += 1
             flag = 1
-            if len(i) != 3:
+            if len(i) != 2:
                 errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0

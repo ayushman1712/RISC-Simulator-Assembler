@@ -64,9 +64,59 @@ def immediate(str):
     str=('0'*(7-len(str)))+str
     return str
 
+binary_output=[]
+def opcodeGenerator(instructions_list):
+    for instruction in instructions_list:
+        machine_code=''
+        if ":" in instruction:
+            j=((instruction.split(":"))[1].strip()).split()
+            instruction=(instruction.split(":"))[1].strip()
+        else:
+            pass
+        i=instruction.split()
 
-
-
+        if i[0]=='add':
+            machine_code=machine_code+opcodes["add"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
+        elif i[0]=='sub':
+            machine_code=machine_code+opcodes["sub"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
+        elif i[0]=='mul':
+            machine_code=machine_code+opcodes["mul"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
+        elif i[0]=='xor':
+            machine_code=machine_code+opcodes["xor"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
+        elif i[0]=='or':
+            machine_code=machine_code+opcodes["or"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
+        elif i[0]=='and':
+            machine_code=machine_code+opcodes["and"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
+        elif i[0]=='mov' and i[2][0]=='$':
+            machine_code=machine_code+opcodes["movI"]+"0"+registers[i[1]]+immediate(i[2])
+        elif i[0]=='rs':
+            machine_code=machine_code+opcodes["rs"]+"0"+registers[i[1]]+immediate(i[2])
+        elif i[0]=='ls':
+            machine_code=machine_code+opcodes["ls"]+"0"+registers[i[1]]+immediate(i[2])
+        elif i[0]=='mov':
+            machine_code=machine_code+opcodes["movR"]+"00000"+registers[i[1]]+registers[i[2]]
+        elif i[0]=='div':
+            machine_code=machine_code+opcodes["div"]+"00000"+registers[i[1]]+registers[i[2]]
+        elif i[0]=='not':
+            machine_code=machine_code+opcodes["not"]+"00000"+registers[i[1]]+registers[i[2]]
+        elif i[0]=='cmp':
+            machine_code=machine_code+opcodes["cmp"]+"00000"+registers[i[1]]+registers[i[2]]
+        elif i[0]=='ld':
+            machine_code=machine_code+opcodes["ld"]+"0"+registers[i[1]]+memory[i[2]]
+        elif i[0]=='st':
+            machine_code=machine_code+opcodes["st"]+"0"+registers[i[1]]+memory[i[2]]
+        elif i[0]=='jmp':
+            machine_code=machine_code+opcodes["jmp"]+"0000"+memory[i[1]]
+        elif i[0]=='jlt':
+            machine_code=machine_code+opcodes["jlt"]+"0000"+memory[i[1]]
+        elif i[0]=='jgt':
+            machine_code=machine_code+opcodes["jgt"]+"0000"+memory[i[1]]
+        elif i[0]=='je':
+            machine_code=machine_code+opcodes["je"]+"0000"+memory[i[1]]
+        elif i[0]=='hlt':
+            machine_code=machine_code+opcodes["hlt"]+"00000"+"00000"+"0"
+        binary_output.append(machine_code)
+    return binary_output
 f.close()
 g=open("output.txt","w")
 for i in opcodeGenerator(instructions_list):

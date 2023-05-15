@@ -97,7 +97,7 @@ def opcodeGenerator(instructions_list):
             flag = 1
             line_num += 1
             if len(i) != 4:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -122,11 +122,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["add"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
         elif i[0]=='sub':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 4:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -151,11 +150,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["sub"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
         elif i[0]=='mul':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 4:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -180,11 +178,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["mul"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
         elif i[0]=='xor':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 4:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -209,11 +206,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["xor"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
         elif i[0]=='or':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 4:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -238,11 +234,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["or"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
         elif i[0]=='and':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 4:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -267,11 +262,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["and"]+"00"+registers[i[1]]+registers[i[2]]+registers[i[3]]
         elif i[0]=='mov' and i[2][0]=='$':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 3:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -290,11 +284,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["movI"]+"0"+registers[i[1]]+immediate(i[2], line_num)
         elif i[0]=='rs':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 3:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -313,11 +306,10 @@ def opcodeGenerator(instructions_list):
             if flag:            
                 machine_code=machine_code+opcodes["rs"]+"0"+registers[i[1]]+immediate(i[2], line_num)
         elif i[0]=='ls':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 3:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -336,11 +328,10 @@ def opcodeGenerator(instructions_list):
             if flag:            
                 machine_code=machine_code+opcodes["ls"]+"0"+registers[i[1]]+immediate(i[2], line_num)
         elif i[0]=='mov': #add flags here
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 3:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -354,11 +345,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["movR"]+"00000"+registers[i[1]]+registers[i[2]]
         elif i[0]=='div':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 3:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -379,11 +369,10 @@ def opcodeGenerator(instructions_list):
             if flag:
                 machine_code=machine_code+opcodes["div"]+"00000"+registers[i[1]]+registers[i[2]]
         elif i[0]=='not':
-            line_num += 1
             flag = 1
             line_num += 1
             if len(i) != 3:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -406,9 +395,8 @@ def opcodeGenerator(instructions_list):
         elif i[0]=='cmp':
             line_num += 1
             flag = 1
-            line_num += 1
             if len(i) != 3:
-                errors_dict[line_num].append("ERROR : Incorrect number of registers")
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
                 machine_code = "ERROR"
                 flag = 0
             else:
@@ -430,22 +418,166 @@ def opcodeGenerator(instructions_list):
                 machine_code=machine_code+opcodes["cmp"]+"00000"+registers[i[1]]+registers[i[2]]
         elif i[0]=='ld':
             line_num += 1
-            machine_code=machine_code+opcodes["ld"]+"0"+registers[i[1]]+memory[i[2]]
+            flag = 1
+            if len(i) != 3:
+                errors_dict[line_num].append("ERROR : Incorrect number of aguments")
+                machine_code = "ERROR"
+                flag = 0
+            else:
+                try:
+                    register1 = i[1]
+                except:
+                    register1 = ""
+                if register1 not in registers:
+                    errors_dict[line_num].append("ERROR : Undefined register")
+                    flag = 0
+                elif "FLAGS" in [register1]:
+                    errors_dict[line_num].append("ERROR : Illegal use of FLAGS register")
+                    flag = 0
+                mem_addr = i[2]
+                if mem_addr not in variables:
+                    if mem_addr in labels:
+                        errors_dict[line_num].append("ERROR : Misuse of label as variable")
+                    else:
+                        errors_dict[line_num].append("ERROR : Undefined variable used")
+                    flag = 0
+            if flag:
+                machine_code=machine_code+opcodes["ld"]+"0"+registers[i[1]]+memory[i[2]]
         elif i[0]=='st':
             line_num += 1
-            machine_code=machine_code+opcodes["st"]+"0"+registers[i[1]]+memory[i[2]]
+            flag = 1
+            if len(i) != 3:
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
+                machine_code = "ERROR"
+                flag = 0
+            else:
+                try:
+                    register1 = i[1]
+                except:
+                    register1 = ""
+                if register1 not in registers:
+                    errors_dict[line_num].append("ERROR : Undefined register")
+                    flag = 0
+                elif "FLAGS" in [register1]:
+                    errors_dict[line_num].append("ERROR : Illegal use of FLAGS register")
+                    flag = 0
+                mem_addr = i[2]
+                if mem_addr not in variables:
+                    if mem_addr in labels:
+                        errors_dict[line_num].append("ERROR : Misuse of label as variable")
+                    else:
+                        errors_dict[line_num].append("ERROR : Undefined variable used")
+                    flag = 0
+            if flag:
+                machine_code=machine_code+opcodes["st"]+"0"+registers[i[1]]+memory[i[2]]
         elif i[0]=='jmp':
             line_num += 1
-            machine_code=machine_code+opcodes["jmp"]+"0000"+memory[i[1]]
+            flag = 1
+            if len(i) != 3:
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
+                machine_code = "ERROR"
+                flag = 0
+            else:
+                try:
+                    register1 = i[1]
+                except:
+                    register1 = ""
+                if register1 not in register:
+                    errors_dict[line_num].append("ERROR : Undefined register")
+                    flag = 0
+                elif "FLAGS" in [register1]:
+                    errors_dict[line_num].append("ERROR : Illegal use of FLAGS register")
+                    flag = 0
+                mem_addr = i[2]
+                if mem_addr not in labels:
+                    if mem_addr in variables:
+                        errors_dict[line_num].append("ERROR : Misuse of variable as label")
+                    else:
+                        errors_dict[line_num].append("ERROR : Undefined label used")
+                    flag = 0 
+            if flag:           
+                machine_code=machine_code+opcodes["jmp"]+"0000"+memory[i[1]]
         elif i[0]=='jlt':
             line_num += 1
-            machine_code=machine_code+opcodes["jlt"]+"0000"+memory[i[1]]
+            flag = 1
+            if len(i) != 3:
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
+                machine_code = "ERROR"
+                flag = 0
+            else:
+                try:
+                    register1 = i[1]
+                except:
+                    register1 = ""
+                if register1 not in register:
+                    errors_dict[line_num].append("ERROR : Undefined register")
+                    flag = 0
+                elif "FLAGS" in [register1]:
+                    errors_dict[line_num].append("ERROR : Illegal use of FLAGS register")
+                    flag = 0
+                mem_addr = i[2]
+                if mem_addr not in labels:
+                    if mem_addr in variables:
+                        errors_dict[line_num].append("ERROR : Misuse of variable as label")
+                    else:
+                        errors_dict[line_num].append("ERROR : Undefined label used")
+                    flag = 0 
+            if flag:
+                machine_code=machine_code+opcodes["jlt"]+"0000"+memory[i[1]]
         elif i[0]=='jgt':
             line_num += 1
-            machine_code=machine_code+opcodes["jgt"]+"0000"+memory[i[1]]
+            flag = 1
+            if len(i) != 3:
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
+                machine_code = "ERROR"
+                flag = 0
+            else:
+                try:
+                    register1 = i[1]
+                except:
+                    register1 = ""
+                if register1 not in registers:
+                    errors_dict[line_num].append("ERROR : Undefined register")
+                    flag = 0
+                elif "FLAGS" in [register1]:
+                    errors_dict[line_num].append("ERROR : Illegal use of FLAGS register")
+                    flag = 0
+                mem_addr = i[2]
+                if mem_addr not in labels:
+                    if mem_addr in variables:
+                        errors_dict[line_num].append("ERROR : Misuse of variable as label")
+                    else:
+                        errors_dict[line_num].append("ERROR : Undefined label used")
+                    flag = 0 
+            if flag:
+                machine_code=machine_code+opcodes["jgt"]+"0000"+memory[i[1]]
         elif i[0]=='je':
             line_num += 1
-            machine_code=machine_code+opcodes["je"]+"0000"+memory[i[1]]
+            flag = 1
+            if len(i) != 3:
+                errors_dict[line_num].append("ERROR : Incorrect number of arguments")
+                machine_code = "ERROR"
+                flag = 0
+            else:
+                try:
+                    register1 = i[1]
+                except:
+                    register1 = ""
+                if register1 not in registers:
+                    errors_dict[line_num].append("ERROR : Undefined register")
+                    flag = 0
+                elif "FLAGS" in [register1]:
+                    errors_dict[line_num].append("ERROR : Illegal use of FLAGS register")
+                    flag = 0
+                mem_addr = i[2]
+                if mem_addr not in labels:
+                    if mem_addr in variables:
+                        errors_dict[line_num].append("ERROR : Misuse of variable as label")
+                    else:
+                        errors_dict[line_num].append("ERROR : Undefined label used")
+                    flag = 0 
+            if flag:
+                machine_code=machine_code+opcodes["je"]+"0000"+memory[i[1]]
         elif i[0]=='hlt':
             line_num += 1
             machine_code=machine_code+opcodes["hlt"]+"00000"+"00000"+"0"

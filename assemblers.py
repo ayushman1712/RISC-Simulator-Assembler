@@ -485,7 +485,7 @@ def opcodeGenerator(instructions_list):
                     register1 = i[1]
                 except:
                     register1 = ""
-                if register1 not in register:
+                if register1 not in registers:
                     errors_dict[line_num].append("ERROR : Undefined register")
                     flag = 0
                 elif "FLAGS" in [register1]:
@@ -512,7 +512,7 @@ def opcodeGenerator(instructions_list):
                     register1 = i[1]
                 except:
                     register1 = ""
-                if register1 not in register:
+                if register1 not in registers:
                     errors_dict[line_num].append("ERROR : Undefined register")
                     flag = 0
                 elif "FLAGS" in [register1]:

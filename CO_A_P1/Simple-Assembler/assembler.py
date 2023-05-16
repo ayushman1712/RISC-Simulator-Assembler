@@ -667,7 +667,7 @@ for lst in list(errors_dict.values()):
 if flage:
     print(to_write)
 else:
-    for i in list(errors_dict.values()):
-        if len(i) > 0:
-            print(i[0])
+    for i in range(len(errors_dict)):
+        if errors_dict[i] != []:
+            print("Line " + str(i) + " : " + errors_dict[i][0])
             break

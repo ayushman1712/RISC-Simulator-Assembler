@@ -1,3 +1,45 @@
+Instructions=list()
+MM=list()
+Mem=list()
+Errors=list()
+labels=list()
+variables=list()
+Registers=list()
+var_values=[]
+program_counter=0
+'''print("Give the assembly code as input(to end giving input type'hogya'):")
+i=1
+while True:
+    print("Line",i,":",end=" ")
+    a=input()
+    a.strip()
+    if a=='hogya':
+        break
+    else:
+        Instructions.append(a)
+        i+=1
+for i in range(len(Instructions)):
+    a=Instructions[i].split()
+    Instructions[i]=[i+1]
+    for j in range(len(a)):
+        Instructions[i].append(a[j])'''
+
+
+
+
+#Making all the Instructions locations get to a value zero.
+for i in range(0,128):
+        Mem.append(0)
+for i in range(0,128):
+        MM.append(0)
+for i in range(0,8):
+    Registers.append('0000000000000000')
+for i in range(0,128):
+        var_values.append(0)
+
+
+
+
 #Functions definition
 def todecimal(n,bit):
     va=0

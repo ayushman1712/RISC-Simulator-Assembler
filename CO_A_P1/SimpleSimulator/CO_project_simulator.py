@@ -230,3 +230,273 @@ for line in handle:
         Mem[i].append(takeout(line,0,5))
         Mem[i].append('00000000000')
     i=i+1
+
+
+#Working on Functions.
+def repstr(a,n,tbr):
+    va=a[0]
+    for i in range(1,n):
+        va=va+a[i]
+    va=va+tbr
+    for i in range(n+1,len(a)):
+        va=va+a[i]
+    return va
+
+def add_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_val=todecimal(Registers[b],16)
+    c_val=todecimal(Registers[c],16)
+    v=b_val+c_val
+    if v<0 or v>127:
+        Registers[a]='0000000000000000'
+        Registers[7]=repstr(Registers[7],12,'1')
+        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
+        quit()
+    v=tobinary(v,16)
+    Registers[a]=v
+
+def addf_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_val=todecimalf(Registers[b],16)
+    c_val=todecimalf(Registers[c],16)
+    v=b_val+c_val
+    if v<0 or v>127:
+        Registers[a]='0000000000000000'
+        Registers[7]=repstr(Registers[7],12,'1')
+        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
+        quit()
+    v=tobinary_f(v,16)
+    Registers[a]=v
+
+def sub_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_val=todecimal(Registers[b],16)
+    c_val=todecimal(Registers[c],16)
+    v=b_val-c_val
+    if v<0 or v>127:
+        Registers[a]='0000000000000000'
+        Registers[7]=repstr(Registers[7],12,'1')
+        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
+        quit()
+    v=tobinary(v,16)
+    Registers[a]=v
+
+def subf_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_val=todecimalf(Registers[b],16)
+    c_val=todecimalf(Registers[c],16)
+    v=b_val-c_val
+    if v<0 or v>127:
+        Registers[a]='0000000000000000'
+        Registers[7]=repstr(Registers[7],12,'1')
+        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
+        quit()
+    v=tobinary_f(v,16)
+    Registers[a]=v
+
+def mul_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_val=todecimal(Registers[b],16)
+    c_val=todecimal(Registers[c],16)
+    v=b_val*c_val
+    if v<0 or v>127:
+        Registers[a]='0000000000000000'
+        Registers[7]=repstr(Registers[7],12,'1')
+        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
+        quit()
+    v=tobinary(v,16)
+    Registers[a]=v
+
+def xor_2b(a,b):
+    if a=='0' and b=='0':
+        return '0'
+    if a=='1' and b=='1':
+        return '0'
+    if a=='1' and b=='0':
+        return '1'
+    if a=='0' and b=='1':
+        return '1'
+def xor_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_v=Registers[b]
+    c_v=Registers[c]
+    va=xor_2b(b_v[0],c_v[0])
+    for i in range(1,16):
+        va=va+xor_2b(b_v[i],c_v[i])
+    Registers[a]=va
+
+def or_2b(a,b):
+    if a=='0' and b=='0':
+        return '0'
+    if a=='1' and b=='1':
+        return '1'
+    if a=='1' and b=='0':
+        return '1'
+    if a=='0' and b=='1':
+        return '1'
+def or_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_v=Registers[b]
+    c_v=Registers[c]
+    va=or_2b(b_v[0],c_v[0])
+    for i in range(1,16):
+        va=va+or_2b(b_v[i],c_v[i])
+    Registers[a]=va
+
+def and_2b(a,b):
+    if a=='0' and b=='0':
+        return '0'
+    if a=='1' and b=='1':
+        return '1'
+    if a=='1' and b=='0':
+        return '0'
+    if a=='0' and b=='1':
+        return '0'
+def and_(a,b,c):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    c=todecimal(c,3)
+    b_v=Registers[b]
+    c_v=Registers[c]
+    va=and_2b(b_v[0],c_v[0])
+    for i in range(1,16):
+        va=va+and_2b(b_v[i],c_v[i])
+    Registers[a]=va
+
+def mov_B(a,b):
+    a=todecimal(a,3)
+    va='0'*9+b
+    Registers[a]=va
+
+def movf_(a,b):
+    a=todecimal(a,3)
+    va='0'*8+b
+    Registers[a]=va
+
+def rs_(a,b):
+    a=todecimal(a,3)
+    a_v=Registers[a]
+    b=todecimal(b,7)
+    va='0'*b
+    for i in range(0,16-b):
+        va=va+a_v[i]
+    Registers[a]=va
+
+def ls_(a,b):
+    a=todecimal(a,3)
+    a_v=Registers[a]
+    b=todecimal(b,7)
+    va=a_v[b]
+    for i in range(b+1,16):
+        va=va+a_v[i]
+    va='0'*b
+    Registers[a]=va
+
+def mov_C(a,b):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    Registers[a]=Registers[b]
+
+def div_(a,b):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    a_v=todecimal(Registers[a],16)
+    b_v=todecimal(Registers[b],16)
+    if b_v==0:
+        Registers[7]=repstr(Registers[7],12,'1')
+        Registers[0]='0000000000000000'
+        Registers[1]='0000000000000000'
+    else:
+        Registers[0]=tobinary(a_v//b_v,16)
+        Registers[1]=tobinary(a_v%b_v,16)
+
+def not_b(a):
+    if a=='0':
+        return '1'
+    if a=='1':
+        return '0'
+def not_(a,b):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    b_v=Registers[b]
+    va=not_b(b_v[0])
+    for i in range(1,16):
+        va=va+not_b(b_v[i])
+    Registers[a]=va
+
+def cmp_(a,b):
+    a=todecimal(a,3)
+    b=todecimal(b,3)
+    a_v=Registers[a]
+    b_v=Registers[b]
+    if todecimal(a_v,16)==todecimal(b_v,16):
+        Registers[7]=repstr(Registers[7],15,'1')
+        Registers[7]=repstr(Registers[7],13,'0')
+        Registers[7]=repstr(Registers[7],14,'0')
+    elif todecimal(a_v,16)<todecimal(b_v,16):
+        Registers[7]=repstr(Registers[7],13,'1')
+        Registers[7]=repstr(Registers[7],15,'0')
+        Registers[7]=repstr(Registers[7],14,'0')
+    elif todecimal(a_v,16)>todecimal(b_v,16):
+        Registers[7]=repstr(Registers[7],14,'1')
+        Registers[7]=repstr(Registers[7],15,'0')
+        Registers[7]=repstr(Registers[7],13,'0')
+
+def st_(a,b):
+    a=todecimal(a,3)
+    Mem[todecimal(b,7)]=Registers[a]
+    return 1
+    
+
+def ld_(a,b):
+    a=todecimal(a,3)
+    Registers[a]=tobinary(Mem[todecimal(b,7)],16)
+    return 1
+    
+
+def jmp_(a):
+    try:
+        return todecimal(a,7)+1
+    except:
+        return -1
+
+def jlt_(a):
+    try:
+        if Registers[7][13]=='1':
+            return todecimal(a,7)+1
+        else:
+            return -1
+    except:
+        return -1
+
+def jgt_(a):
+    try:
+        if Registers[7][14]=='1':
+            return todecimal(a,7)+1
+        else:
+            return -1
+    except:
+        return -1
+
+def je_(a):
+    try:
+        if Registers[7][15]=='1':
+            return todecimal(a,7)+1
+        else:
+            return -1
+    except:
+        return -1

@@ -162,3 +162,71 @@ def islabel(a):
         return True
     else:
         return False
+    
+
+
+
+
+
+def takeout(n,m,o):
+    if o-m == 1:
+        return n[m]
+    else:
+        xx=n[m]
+        for i in range(m+1,o):
+            xx=xx+n[i]
+        return xx
+def typ(n):
+    lst=['00000','00001','00110','01010','01011','01100']
+    xx=takeout(n,0,5)
+    if xx in lst:
+        return 'A'
+    lst=['00010','01000','01001']
+    if xx in lst:
+        return 'B'
+    lst=['00011','00111','01101','01110']
+    if xx in lst:
+        return 'C'
+    lst=['00100','00101']
+    if xx in lst:
+        return 'D'
+    lst=['01111','11100','11101','11111']
+    if xx in lst:
+        return 'E'
+    lst=['11010']
+    if xx in lst:
+        return 'F'
+handle=open("D:\Padhai Likhai\My codes\Python\sim.txt")
+i=0
+for line in handle:
+    line=str(line)
+    Mem[i]=[]
+    if typ(line)=='A':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('00')
+        Mem[i].append(takeout(line,7,10))
+        Mem[i].append(takeout(line,10,13))
+        Mem[i].append(takeout(line,13,16))
+    if typ(line)=='B':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('0')
+        Mem[i].append(takeout(line,6,9))
+        Mem[i].append(takeout(line,9,16))
+    if typ(line)=='C':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('00000')
+        Mem[i].append(takeout(line,10,13))
+        Mem[i].append(takeout(line,13,16))
+    if typ(line)=='D':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('0')
+        Mem[i].append(takeout(line,6,9))
+        Mem[i].append(takeout(line,9,16))
+    if typ(line)=='E':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('0000')
+        Mem[i].append(takeout(line,9,16))
+    if typ(line)=='F':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('00000000000')
+    i=i+1

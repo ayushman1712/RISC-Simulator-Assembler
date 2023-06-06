@@ -500,3 +500,133 @@ def je_(a):
             return -1
     except:
         return -1
+
+
+
+#print("variables",variables)
+print("Mem",Mem)
+
+#Execution
+def exct(inss,pc):
+    if inss[0]=='00000':
+        add_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='10000':
+        addf_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='10001':
+        subf_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='00001':
+        sub_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='00010':
+        mov_B(inss[2],inss[3])
+        return pc+1
+    elif inss[0]=='10010':
+        movf_(inss[1],inss[2])
+        return pc+1
+    elif inss[0]=='00011':
+        mov_C(inss[2],inss[3])
+        return pc+1
+    elif inss[0]=='00100':
+        if ld_(inss[2],inss[3])==1:
+            return pc+1
+    elif inss[0]=='00101':
+        if st_(inss[2],inss[3])==1:
+            return pc+1
+    elif inss[0]=='00110':
+        mul_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='00111':
+        div_(inss[2],inss[3])
+        return pc+1
+    elif inss[0]=='01000':
+        rs_(inss[2],inss[3])
+        return pc+1
+    elif inss[0]=='01001':
+        ls_(inss[2],inss[3])
+        return pc+1
+    elif inss[0]=='01010':
+        xor_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='01011':
+        or_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='01100':
+        and_(inss[2],inss[3],inss[4])
+        return pc+1
+    elif inss[0]=='01101':
+        not_(inss[2],inss[3])
+        return pc+1
+    elif inss[0]=='01110':
+        cmp_(inss[2],inss[3])
+        return pc+1
+    elif inss[0]=='01111':
+        v=jmp_(inss[2])
+        if v!=-1:
+            return v
+        else:
+            return pc+1
+    elif inss[0]=='11100':
+        v=jlt_(inss[2])
+        if v!=-1:
+            return v
+        else:
+            return pc+1
+    elif inss[0]=='11101':
+        v=jgt_(inss[2])
+        if v!=-1:
+            return v
+        else:
+            return pc+1
+    elif inss[0]=='11111':
+        v=je_(inss[2])
+        if v!=-1:
+            return v
+        else:
+            return pc+1
+if len(Errors)==0:
+    print("Initially:")
+    print("RF-",Registers)
+    print("PC-",program_counter)
+    print("")
+    print("SIMULATOR:")
+    while Mem[program_counter][0]!='11010':
+        if islabel(Mem[program_counter])==True:
+            program_counter=program_counter+1
+        else:
+            program_counter=exct(Mem[program_counter],program_counter)
+        '''print("RF-",Registers)
+        print("PC-",program_counter)
+        print("")'''
+        print(tobinary(program_counter,7),end="     ")
+        for km in range(0,8):
+            print(Registers[km],end=" ")
+        print("")
+
+    print(tobinary(program_counter+1,7),end="     ")
+    for km in range(0,8):
+        print(Registers[km],end=" ")
+    print("")
+    for k in range(len(Mem)):
+        if Mem[k]==0:
+            MM[k]=Mem[k]
+        elif islabel(Mem[k]):
+            MM[k]=Mem[k]
+        elif type(Mem[k])==str:
+            MM[k]=Mem[k]
+        else:
+            nn=Mem[k][0]
+            for l in range(1,len(Mem[k])):
+                nn=nn+Mem[k][l]
+            MM[k]=nn
+    for km in range(0,len(MM)):
+        if MM[km]==0:
+            print(tobinary(MM[km],16))
+        else:
+            print(MM[km])
+else:
+    for i in range(len(Errors)):
+        print("Error! ",Errors[i])
+#print(MM)

@@ -485,9 +485,10 @@ def typ(n):
     lst=['11010']
     if xx in lst:
         return 'F'
-#handle=open("D:\Padhai Likhai\My codes\Python\sim.txt")
-import sys
-handle=sys.stdin.readlines()
+file=open(r"C:\Users\Ayushman Pandey\Desktop\C\CO-MidSemProject-CSE112\CO_A_P1\automatedTesting\tests\bin\hard\test1.txt")
+handle=file.readlines()
+# import sys
+# handle=sys.stdin.readlines()
 i=0
 for line in handle:
     line=str(line)
@@ -790,13 +791,23 @@ def st_(a,b):
     return 1
     
 
+# def ld_(a,b):
+#     a=todecimal(a,3)
+#     Registers[a]=tobinary(Mem[todecimal(b,7)],16)
+#     if todecimal(Registers[7],16)!=0:
+#         Registers[7]='0000000000000000'
+#     return 1
+    
 def ld_(a,b):
     a=todecimal(a,3)
-    Registers[a]=tobinary(Mem[todecimal(b,7)],16)
+    b_v=Mem[todecimal(b,7)]
+    if b_v==0:
+        Registers[a]=tobinary(Mem[todecimal(b,7)],16)
+    else:
+        Registers[a]=Mem[todecimal(b,7)]
     if todecimal(Registers[7],16)!=0:
         Registers[7]='0000000000000000'
     return 1
-    
 
 def jmp_(a):
     try:

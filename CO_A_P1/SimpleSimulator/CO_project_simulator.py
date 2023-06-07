@@ -630,28 +630,28 @@ def exct(inss,pc):
         else:
             return pc+1
 if len(Errors)==0:
-    print("Initially:")
-    print("RF-",Registers)
-    print("PC-",program_counter)
-    print("")
-    print("SIMULATOR:")
+    sys.stdout.write("Initially:")
+    sys.stdout.write("RF-",Registers)
+    sys.stdout.write("PC-",program_counter)
+    sys.stdout.write("")
+    sys.stdout.write("SIMULATOR:")
     while Mem[program_counter][0]!='11010':
         if islabel(Mem[program_counter])==True:
             program_counter=program_counter+1
         else:
             program_counter=exct(Mem[program_counter],program_counter)
-        '''print("RF-",Registers)
-        print("PC-",program_counter)
-        print("")'''
-        print(tobinary(program_counter,7),end="     ")
+        '''sys.stdout.write("RF-",Registers)
+        sys.stdout.write("PC-",program_counter)
+        sys.stdout.write("")'''
+        sys.stdout.write(tobinary(program_counter,7),end="     ")
         for km in range(0,8):
-            print(Registers[km],end=" ")
-        print("")
+            sys.stdout.write(Registers[km],end=" ")
+        sys.stdout.write("")
 
-    print(tobinary(program_counter+1,7),end="     ")
+    sys.stdout.write(tobinary(program_counter+1,7),end="     ")
     for km in range(0,8):
-        print(Registers[km],end=" ")
-    print("")
+        sys.stdout.write(Registers[km],end=" ")
+    sys.stdout.write("")
     for k in range(len(Mem)):
         if Mem[k]==0:
             MM[k]=Mem[k]
@@ -666,10 +666,10 @@ if len(Errors)==0:
             MM[k]=nn
     for km in range(0,len(MM)):
         if MM[km]==0:
-            print(tobinary(MM[km],16))
+            sys.stdout.write(tobinary(MM[km],16))
         else:
-            print(MM[km])
+            sys.stdout.write(MM[km])
 else:
     for i in range(len(Errors)):
-        print("Error! ",Errors[i])
+        sys.stdout.write("Error! ",Errors[i])
 #print(MM)

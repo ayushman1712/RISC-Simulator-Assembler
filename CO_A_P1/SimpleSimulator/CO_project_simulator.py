@@ -238,7 +238,8 @@ def typ(n):
     lst=['11010']
     if xx in lst:
         return 'F'
-handle=open("D:\Padhai Likhai\My codes\Python\sim.txt")
+import sys
+handle=sys.stdin.readlines()
 i=0
 for line in handle:
     line=str(line)

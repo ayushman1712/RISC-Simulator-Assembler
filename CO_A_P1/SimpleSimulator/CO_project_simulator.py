@@ -7,13 +7,13 @@ variables=list()
 Registers=list()
 var_values=[]
 program_counter=0
-print("Give the assembly code as input(to end giving input type'donee'):")
+'''print("Give the assembly code as input(to end giving input type'hogya'):")
 i=1
 while True:
     print("Line",i,":",end=" ")
     a=input()
     a.strip()
-    if a=='donee':
+    if a=='hogya':
         break
     else:
         Instructions.append(a)
@@ -22,7 +22,7 @@ for i in range(len(Instructions)):
     a=Instructions[i].split()
     Instructions[i]=[i+1]
     for j in range(len(a)):
-        Instructions[i].append(a[j])
+        Instructions[i].append(a[j])'''
 
 
 
@@ -41,24 +41,12 @@ for i in range(0,128):
 
 
 #Functions definition
-def takeout(n,m,o):
-    if o-m == 1:
-        return n[m]
-    else:
-        xx=n[m]
-        for i in range(m+1,o):
-            xx=xx+n[i]
-        return xx
 def todecimal(n,bit):
-    try:
-        va=0
-        for i in range(0,bit):
-            a=int(n[bit-1-i])
-            va=va+a*(2**i)
-        return va
-    except:
-        print("Error - Decimal value can't be added or substracted with 'add' or 'sub' instrution.")
-        quit()
+    va=0
+    for i in range(0,bit):
+        a=int(n[bit-1-i])
+        va=va+a*(2**i)
+    return va
 def todecimalf(n,bit):
     va=0
     dp=bit
@@ -169,7 +157,7 @@ def reg_add(inpp):
     elif inpp=='FLAGS':
         return '111'
 def checkins(ins):
-    lst=['add','sub','mov','ld','st','mul','div','rs','ls','xor','or','and','not','cmp','jmp','jlt','jgt','je','hlt','addf','subf','movf','addi','subi','muli','remi','quoi']
+    lst=['add','sub','mov','ld','st','mul','div','rs','ls','xor','or','and','not','cmp','jmp','jlt','jgt','je','hlt','addf','subf','movf']
     if ins[1] in lst:
         return True
     else:
@@ -210,9 +198,6 @@ def checktype(ins):
     if ins[1]=='mov':
         if checkregister(ins[3])==False:
             return 'B'
-    lst=['addi','subi','muli','remi','quoi']
-    if ins[1] in lst:
-        return 'B'
     return None
 def islabel(a):
     if a[-1]==':' and a[-2]!=' ':
@@ -221,7 +206,7 @@ def islabel(a):
         return False
 
 
-for i in range(len(Instructions)):
+'''for i in range(len(Instructions)):
     if checktype(Instructions[i])=='B' or checktype(Instructions[i])=='B0':
         if Instructions[i][3][0]=='&':
             if len(Instructions[i][3])==2:
@@ -231,19 +216,10 @@ for i in range(len(Instructions)):
                 for j in range(2,len(Instructions[i][3])):
                     bb=bb+Instructions[i][3][j]
                 Instructions[i][3]=bb
-    elif checktype(Instructions[i])=='G':
-        if Instructions[i][4][0]=='&':
-            if len(Instructions[i][4])==2:
-                    Instructions[i][4]=Instructions[i][4][1]
-            elif len(Instructions[i][4])>2:
-                bb=Instructions[i][4][1]
-                for j in range(2,len(Instructions[i][4])):
-                    bb=bb+Instructions[i][4][j]
-                Instructions[i][4]=bb
-#print("Instructions",Instructions)
+print("Instructions",Instructions)'''
 
 
-#Error Handling
+'''#Error Handling
 for i in range(len(Instructions)):
     if len(Instructions[i])>1:
         if islabel(Instructions[i][1])==True and len(Instructions[i])>2:
@@ -350,11 +326,6 @@ for i in range(len(Instructions)):
 if hlt_c==0:
     aa="There's no 'hlt' instruction in the program."
     Errors.append(aa)
-for i in range(0,len(Instructions)):
-    if Instructions[i][1]=='mov':
-        if '.' in Instructions[i][3]:
-            aa="Line no:"+str(Instructions[i][0])+" - decimal value can't be moved with 'mov', but only 'movf'-"+Instructions[i][1]
-            Errors.append(aa)
 
 
 
@@ -399,17 +370,7 @@ for i in range(len(Instructions)):
             Mem[ins_count].append(reg_add(Instructions[i][4]))
             ins_count=ins_count+1
         elif checktype(Instructions[i])=='B' or checktype(Instructions[i])=='B0':
-            if Instructions[i][1]=='addi':
-                Mem[ins_count]=['10011']
-            elif Instructions[i][1]=='subi':
-                Mem[ins_count]=['10100']
-            elif Instructions[i][1]=='muli':
-                Mem[ins_count]=['10101']
-            elif Instructions[i][1]=='remi':
-                Mem[ins_count]=['10110']
-            elif Instructions[i][1]=='quoi':
-                Mem[ins_count]=['10111']
-            elif Instructions[i][1]=='mov':
+            if Instructions[i][1]=='mov':
                 Mem[ins_count]=['00010']
             elif Instructions[i][1]=='movf':
                 Mem[ins_count]=['10010']
@@ -493,8 +454,74 @@ for i in range(len(Instructions)):
                 Errors.append(aa)
             else:
                 aa="Line no:"+str(Instructions[i][0])+" - Label not defined.-",Instructions[i][2]
-                Errors.append(aa)
+                Errors.append(aa)'''
 
+
+def takeout(n,m,o):
+    if o-m == 1:
+        return n[m]
+    else:
+        xx=n[m]
+        for i in range(m+1,o):
+            xx=xx+n[i]
+        return xx
+def typ(n):
+    lst=['00000','00001','00110','01010','01011','01100']
+    xx=takeout(n,0,5)
+    if xx in lst:
+        return 'A'
+    lst=['00010','01000','01001']
+    if xx in lst:
+        return 'B'
+    lst=['00011','00111','01101','01110']
+    if xx in lst:
+        return 'C'
+    lst=['00100','00101']
+    if xx in lst:
+        return 'D'
+    lst=['01111','11100','11101','11111']
+    if xx in lst:
+        return 'E'
+    lst=['11010']
+    if xx in lst:
+        return 'F'
+handle=open("D:\Padhai Likhai\My codes\Python\sim.txt")
+i=0
+for line in handle:
+    line=str(line)
+    Mem[i]=[]
+    if typ(line)=='A':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('00')
+        Mem[i].append(takeout(line,7,10))
+        Mem[i].append(takeout(line,10,13))
+        Mem[i].append(takeout(line,13,16))
+    if typ(line)=='B':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('0')
+        Mem[i].append(takeout(line,6,9))
+        Mem[i].append(takeout(line,9,16))
+    if typ(line)=='C':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('00000')
+        Mem[i].append(takeout(line,10,13))
+        Mem[i].append(takeout(line,13,16))
+    if typ(line)=='D':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('0')
+        Mem[i].append(takeout(line,6,9))
+        Mem[i].append(takeout(line,9,16))
+    if typ(line)=='E':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('0000')
+        Mem[i].append(takeout(line,9,16))
+    if typ(line)=='F':
+        Mem[i].append(takeout(line,0,5))
+        Mem[i].append('00000000000')
+    i=i+1
+
+        
+        
 
 
 #Working on Functions.
@@ -672,88 +699,6 @@ def movf_(a,b):
     if todecimal(Registers[7],16)!=0:
         Registers[7]='0000000000000000'
 
-def addi_(a,b):
-    a=todecimal(a,3)
-    a_v=Registers[a]
-    b=todecimal(b,7)
-    a_v=todecimal(a_v,16)
-    v=a_v+b
-    if todecimal(Registers[7],16)!=0:
-        Registers[7]='0000000000000000'
-    if v<0 or v>127:
-        Registers[a]='0000000000000000'
-        Registers[7]=repstr(Registers[7],12,'1')
-        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
-        quit()
-    v=tobinary(v,16)
-    Registers[a]=v
-
-def subi_(a,b):
-    a=todecimal(a,3)
-    a_v=Registers[a]
-    b=todecimal(b,7)
-    a_v=todecimal(a_v,16)
-    v=a_v-b
-    if todecimal(Registers[7],16)!=0:
-        Registers[7]='0000000000000000'
-    if v<0 or v>127:
-        Registers[a]='0000000000000000'
-        Registers[7]=repstr(Registers[7],12,'1')
-        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
-        quit()
-    v=tobinary(v,16)
-    Registers[a]=v
-
-def muli_(a,b):
-    a=todecimal(a,3)
-    a_v=Registers[a]
-    b=todecimal(b,7)
-    a_v=todecimal(a_v,16)
-    v=a_v*b
-    if todecimal(Registers[7],16)!=0:
-        Registers[7]='0000000000000000'
-    if v<0 or v>127:
-        Registers[a]='0000000000000000'
-        Registers[7]=repstr(Registers[7],12,'1')
-        print("During execution of instruction in Mem[",program_counter,"] the value goes out of range.")
-        quit()
-    v=tobinary(v,16)
-    Registers[a]=v
-
-def remi_(a,b):
-    a=todecimal(a,3)
-    a_v=Registers[a]
-    b=todecimal(b,7)
-    a_v=todecimal(a_v,16)
-    if todecimal(Registers[7],16)!=0:
-        Registers[7]='0000000000000000'
-    if b==0:
-        Registers[7]=repstr(Registers[7],12,'1')
-        Registers[0]='0000000000000000'
-        Registers[1]='0000000000000000'
-        print("During execution of instruction in Mem[",program_counter,"] there's a division with 0.")
-        quit()
-    v=a_v%b
-    v=tobinary(v,16)
-    Registers[a]=v
-
-def quoi_(a,b):
-    a=todecimal(a,3)
-    a_v=Registers[a]
-    b=todecimal(b,7)
-    a_v=todecimal(a_v,16)
-    if todecimal(Registers[7],16)!=0:
-        Registers[7]='0000000000000000'
-    if b==0:
-        Registers[7]=repstr(Registers[7],12,'1')
-        Registers[0]='0000000000000000'
-        Registers[1]='0000000000000000'
-        print("During execution of instruction in Mem[",program_counter,"] there's a division with 0.")
-        quit()
-    v=a_v//b
-    v=tobinary(v,16)
-    Registers[a]=v
-
 def rs_(a,b):
     a=todecimal(a,3)
     a_v=Registers[a]
@@ -835,25 +780,21 @@ def cmp_(a,b):
 
 def st_(a,b):
     a=todecimal(a,3)
-    b=Mem[todecimal(b,7)]
+    Mem[todecimal(b,7)]=Registers[a]
     if todecimal(Registers[7],16)!=0:
         Registers[7]='0000000000000000'
-    if b in variables:
-        var_values[variables.index(b)]=Registers[a]
-        return 1
-    else:
-        return 0
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
+    return 1
+    
 
 def ld_(a,b):
     a=todecimal(a,3)
-    b=Mem[todecimal(b,7)]
+    Registers[a]=tobinary(Mem[todecimal(b,7)],16)
     if todecimal(Registers[7],16)!=0:
         Registers[7]='0000000000000000'
-    if b in variables:
-        Registers[a]=var_values[variables.index(b)]
-        return 1
-    else:
-        return 0
+    return 1
+    
 
 def jmp_(a):
     try:
@@ -930,21 +871,6 @@ def exct(inss,pc):
     elif inss[0]=='00101':
         if st_(inss[2],inss[3])==1:
             return pc+1
-    elif inss[0]=='10011':
-        addi_(inss[2],inss[3])
-        return pc+1
-    elif inss[0]=='10100':
-        subi_(inss[2],inss[3])
-        return pc+1
-    elif inss[0]=='10101':
-        muli_(inss[2],inss[3])
-        return pc+1
-    elif inss[0]=='10110':
-        remi_(inss[2],inss[3])
-        return pc+1
-    elif inss[0]=='10111':
-        quoi_(inss[2],inss[3])
-        return pc+1
     elif inss[0]=='00110':
         mul_(inss[2],inss[3],inss[4])
         return pc+1
@@ -996,54 +922,21 @@ def exct(inss,pc):
             return v
         else:
             return pc+1
-
-
-#Assembler
-print("Assembler:")
 if len(Errors)==0:
-    while Mem[program_counter][0]!='11010':
-        if islabel(Mem[program_counter])==True:
-            program_counter=program_counter+1
-        else:
-            program_counter=exct(Mem[program_counter],program_counter)
-    for k in range(len(Mem)):
-        if Mem[k]==0:
-            MM[k]=Mem[k]
-        elif islabel(Mem[k]):
-            MM[k]=Mem[k]
-        elif type(Mem[k])==str:
-            MM[k]=var_values[variables.index(Mem[k])]
-        else:
-            nn=Mem[k][0]
-            for l in range(1,len(Mem[k])):
-                nn=nn+Mem[k][l]
-            MM[k]=nn
-    k=0
-    while takeout(MM[k],0,5)!='11010':
-        print(MM[k])
-        k=k+1
-    print("1101000000000000")
-else:
-    for i in range(len(Errors)):
-        print("Error! ",Errors[i])
-
-
-for i in range(0,8):
-    Registers[i]='0000000000000000'
-for i in range(128):
-    MM[i]=0
-program_counter=0
-
-
-#Simulator
-print("Simulator:")
-if len(Errors)==0:
+    #print("Initially:")
+    #print("RF-",Registers)
+    #print("PC-",program_counter)
+    #print("")
+    #print("SIMULATOR:")
     while Mem[program_counter][0]!='11010':
         if islabel(Mem[program_counter])==True:
             program_counter=program_counter+1
         print(tobinary(program_counter,7),end="        ")
         if islabel(Mem[program_counter])==False:
             program_counter=exct(Mem[program_counter],program_counter)
+        '''print("RF-",Registers)
+        print("PC-",program_counter)
+        print("")'''
         for km in range(0,8):
             print(Registers[km],end=" ")
         print("")
@@ -1058,7 +951,7 @@ if len(Errors)==0:
         elif islabel(Mem[k]):
             MM[k]=Mem[k]
         elif type(Mem[k])==str:
-            MM[k]=var_values[variables.index(Mem[k])]
+            MM[k]=Mem[k]
         else:
             nn=Mem[k][0]
             for l in range(1,len(Mem[k])):
@@ -1072,3 +965,4 @@ if len(Errors)==0:
 else:
     for i in range(len(Errors)):
         print("Error! ",Errors[i])
+#zamn2

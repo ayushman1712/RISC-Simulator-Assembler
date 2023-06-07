@@ -1,3 +1,4 @@
+import sys
 Instructions=list()
 MM=list()
 Mem=list()
@@ -204,10 +205,6 @@ def islabel(a):
         return True
     else:
         return False
-    
-
-
-
 
 
 def takeout(n,m,o):
@@ -238,8 +235,9 @@ def typ(n):
     lst=['11010']
     if xx in lst:
         return 'F'
-import sys
 handle=sys.stdin.readlines()
+# file=open(r"C:\Users\Ayushman Pandey\Desktop\CO-MidSemProject-CSE112\CO_A_P1\automatedTesting\tests\traces\hard\test2")
+# handle=file.readlines()
 i=0
 for line in handle:
     line=str(line)
@@ -273,6 +271,9 @@ for line in handle:
         Mem[i].append(takeout(line,0,5))
         Mem[i].append('00000000000')
     i=i+1
+
+        
+        
 
 
 #Working on Functions.
@@ -513,14 +514,15 @@ def ld_(a,b):
 
 def jmp_(a):
     try:
-        return todecimal(a,7)+1
+        return todecimal(a,7)
     except:
         return -1
 
 def jlt_(a):
     try:
         if Registers[7][13]=='1':
-            return todecimal(a,7)+1
+            Registers[7]='0000000000000000'
+            return todecimal(a,7)
         else:
             return -1
     except:
@@ -529,7 +531,8 @@ def jlt_(a):
 def jgt_(a):
     try:
         if Registers[7][14]=='1':
-            return todecimal(a,7)+1
+            Registers[7]='0000000000000000'
+            return todecimal(a,7)
         else:
             return -1
     except:
@@ -538,16 +541,12 @@ def jgt_(a):
 def je_(a):
     try:
         if Registers[7][15]=='1':
-            return todecimal(a,7)+1
+            Registers[7]='0000000000000000'
+            return todecimal(a,7)
         else:
             return -1
     except:
         return -1
-
-
-
-#print("variables",variables)
-print("Mem",Mem)
 
 #Execution
 def exct(inss,pc):
@@ -630,28 +629,28 @@ def exct(inss,pc):
         else:
             return pc+1
 if len(Errors)==0:
-    sys.stdout.write("Initially:")
-    sys.stdout.write("RF-",Registers)
-    sys.stdout.write("PC-",program_counter)
-    sys.stdout.write("")
-    sys.stdout.write("SIMULATOR:")
+    #print("Initially:")
+    #print("RF-",Registers)
+    #print("PC-",program_counter)
+    #print("")
+    #print("SIMULATOR:")
     while Mem[program_counter][0]!='11010':
         if islabel(Mem[program_counter])==True:
             program_counter=program_counter+1
         else:
             program_counter=exct(Mem[program_counter],program_counter)
-        '''sys.stdout.write("RF-",Registers)
-        sys.stdout.write("PC-",program_counter)
-        sys.stdout.write("")'''
-        sys.stdout.write(tobinary(program_counter,7),end="     ")
+        '''print("RF-",Registers)
+        print("PC-",program_counter)
+        print("")'''
+        print(tobinary(program_counter-1,7),end="        ")
         for km in range(0,8):
-            sys.stdout.write(Registers[km],end=" ")
-        sys.stdout.write("")
+            print(Registers[km],end=" ")
+        print("")
 
-    sys.stdout.write(tobinary(program_counter+1,7),end="     ")
+    print(tobinary(program_counter,7),end="        ")
     for km in range(0,8):
-        sys.stdout.write(Registers[km],end=" ")
-    sys.stdout.write("")
+        print(Registers[km],end=" ")
+    print("")
     for k in range(len(Mem)):
         if Mem[k]==0:
             MM[k]=Mem[k]
@@ -664,12 +663,11 @@ if len(Errors)==0:
             for l in range(1,len(Mem[k])):
                 nn=nn+Mem[k][l]
             MM[k]=nn
-    for km in range(0,len(MM)):
+    for km in range(len(MM)):
         if MM[km]==0:
-            sys.stdout.write(tobinary(MM[km],16))
+            print(tobinary(MM[km],16))
         else:
-            sys.stdout.write(MM[km])
+            print(MM[km])
 else:
     for i in range(len(Errors)):
-        sys.stdout.write("Error! ",Errors[i])
-#print(MM)
+        print("Error! ",Errors[i])

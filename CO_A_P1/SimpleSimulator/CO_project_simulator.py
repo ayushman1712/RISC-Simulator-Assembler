@@ -1,4 +1,3 @@
-import sys
 Instructions=list()
 MM=list()
 Mem=list()
@@ -207,6 +206,7 @@ def islabel(a):
         return False
 
 
+
 def takeout(n,m,o):
     if o-m == 1:
         return n[m]
@@ -235,9 +235,9 @@ def typ(n):
     lst=['11010']
     if xx in lst:
         return 'F'
+# handle=open("D:\Padhai Likhai\My codes\Python\sim.txt")
+import sys
 handle=sys.stdin.readlines()
-# file=open(r"C:\Users\Ayushman Pandey\Desktop\CO-MidSemProject-CSE112\CO_A_P1\automatedTesting\tests\traces\hard\test2")
-# handle=file.readlines()
 i=0
 for line in handle:
     line=str(line)
@@ -293,6 +293,8 @@ def add_(a,b,c):
     b_val=todecimal(Registers[b],16)
     c_val=todecimal(Registers[c],16)
     v=b_val+c_val
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     if v<0 or v>127:
         Registers[a]='0000000000000000'
         Registers[7]=repstr(Registers[7],12,'1')
@@ -308,6 +310,8 @@ def addf_(a,b,c):
     b_val=todecimalf(Registers[b],16)
     c_val=todecimalf(Registers[c],16)
     v=b_val+c_val
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     if v<0 or v>127:
         Registers[a]='0000000000000000'
         Registers[7]=repstr(Registers[7],12,'1')
@@ -323,6 +327,8 @@ def sub_(a,b,c):
     b_val=todecimal(Registers[b],16)
     c_val=todecimal(Registers[c],16)
     v=b_val-c_val
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     if v<0 or v>127:
         Registers[a]='0000000000000000'
         Registers[7]=repstr(Registers[7],12,'1')
@@ -338,6 +344,8 @@ def subf_(a,b,c):
     b_val=todecimalf(Registers[b],16)
     c_val=todecimalf(Registers[c],16)
     v=b_val-c_val
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     if v<0 or v>127:
         Registers[a]='0000000000000000'
         Registers[7]=repstr(Registers[7],12,'1')
@@ -353,6 +361,8 @@ def mul_(a,b,c):
     b_val=todecimal(Registers[b],16)
     c_val=todecimal(Registers[c],16)
     v=b_val*c_val
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     if v<0 or v>127:
         Registers[a]='0000000000000000'
         Registers[7]=repstr(Registers[7],12,'1')
@@ -380,6 +390,8 @@ def xor_(a,b,c):
     for i in range(1,16):
         va=va+xor_2b(b_v[i],c_v[i])
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def or_2b(a,b):
     if a=='0' and b=='0':
@@ -400,6 +412,8 @@ def or_(a,b,c):
     for i in range(1,16):
         va=va+or_2b(b_v[i],c_v[i])
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def and_2b(a,b):
     if a=='0' and b=='0':
@@ -420,16 +434,22 @@ def and_(a,b,c):
     for i in range(1,16):
         va=va+and_2b(b_v[i],c_v[i])
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def mov_B(a,b):
     a=todecimal(a,3)
     va='0'*9+b
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def movf_(a,b):
     a=todecimal(a,3)
     va='0'*8+b
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def rs_(a,b):
     a=todecimal(a,3)
@@ -439,6 +459,8 @@ def rs_(a,b):
     for i in range(0,16-b):
         va=va+a_v[i]
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def ls_(a,b):
     a=todecimal(a,3)
@@ -449,17 +471,23 @@ def ls_(a,b):
         va=va+a_v[i]
     va='0'*b
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def mov_C(a,b):
     a=todecimal(a,3)
     b=todecimal(b,3)
     Registers[a]=Registers[b]
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def div_(a,b):
     a=todecimal(a,3)
     b=todecimal(b,3)
     a_v=todecimal(Registers[a],16)
     b_v=todecimal(Registers[b],16)
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     if b_v==0:
         Registers[7]=repstr(Registers[7],12,'1')
         Registers[0]='0000000000000000'
@@ -481,6 +509,8 @@ def not_(a,b):
     for i in range(1,16):
         va=va+not_b(b_v[i])
     Registers[a]=va
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
 
 def cmp_(a,b):
     a=todecimal(a,3)
@@ -503,17 +533,24 @@ def cmp_(a,b):
 def st_(a,b):
     a=todecimal(a,3)
     Mem[todecimal(b,7)]=Registers[a]
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     return 1
     
 
 def ld_(a,b):
     a=todecimal(a,3)
     Registers[a]=tobinary(Mem[todecimal(b,7)],16)
+    if todecimal(Registers[7],16)!=0:
+        Registers[7]='0000000000000000'
     return 1
     
 
 def jmp_(a):
     try:
+        Registers[7]='0000000000000000'
         return todecimal(a,7)
     except:
         return -1
@@ -524,6 +561,8 @@ def jlt_(a):
             Registers[7]='0000000000000000'
             return todecimal(a,7)
         else:
+            if todecimal(Registers[7],16)!=0:
+                Registers[7]='0000000000000000'
             return -1
     except:
         return -1
@@ -534,6 +573,8 @@ def jgt_(a):
             Registers[7]='0000000000000000'
             return todecimal(a,7)
         else:
+            if todecimal(Registers[7],16)!=0:
+                Registers[7]='0000000000000000'
             return -1
     except:
         return -1
@@ -544,9 +585,14 @@ def je_(a):
             Registers[7]='0000000000000000'
             return todecimal(a,7)
         else:
+            if todecimal(Registers[7],16)!=0:
+                Registers[7]='0000000000000000'
             return -1
     except:
         return -1
+
+#print("variables",variables)
+#print("Mem",Mem)
 
 #Execution
 def exct(inss,pc):
@@ -637,12 +683,12 @@ if len(Errors)==0:
     while Mem[program_counter][0]!='11010':
         if islabel(Mem[program_counter])==True:
             program_counter=program_counter+1
-        else:
+        print(tobinary(program_counter,7),end="        ")
+        if islabel(Mem[program_counter])==False:
             program_counter=exct(Mem[program_counter],program_counter)
         '''print("RF-",Registers)
         print("PC-",program_counter)
         print("")'''
-        print(tobinary(program_counter-1,7),end="        ")
         for km in range(0,8):
             print(Registers[km],end=" ")
         print("")
